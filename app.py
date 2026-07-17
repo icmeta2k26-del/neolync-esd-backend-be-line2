@@ -85,7 +85,7 @@ def api_devices():
             "status": currentStatus
         })
 
-      response = jsonify(result)
+    response = jsonify(result)
 
     response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
     response.headers["Pragma"] = "no-cache"
@@ -93,10 +93,8 @@ def api_devices():
 
     return response
 
-
 @app.route('/api/temperature')
 def api_temperature():
-
     return jsonify(temperatureData)
 
 
