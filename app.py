@@ -91,9 +91,11 @@ def api_devices():
     response.headers["Pragma"] = "no-cache"
     response.headers["Expires"] = "0"
 
-    return response@app.route('/api/temperature')
+    return response
+    @app.route('/api/temperature')
 def api_temperature():
 
     return jsonify(temperatureData)
+    
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000, debug=False)
