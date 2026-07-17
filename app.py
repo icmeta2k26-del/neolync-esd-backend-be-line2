@@ -33,6 +33,10 @@ def update():
         }
     else:
         devices[deviceName]["lastSeen"] = time.time()
+        print(
+    f"Updated {deviceName} -> Status={devices[deviceName]['status']} "
+    f"LastSeen={devices[deviceName]['lastSeen']}"
+)
 
         if status != 2:
             devices[deviceName]["status"] = status
@@ -58,16 +62,23 @@ def updateTemperature():
 @app.route('/api/devices')
 def api_devices():
 
-    print("Sending devices =", devices)
+    print("\n========== API /api/devices CALLED ==========")
 
     result = []
 
     for device, info in devices.items():
 
+        age = time.time() - info["lastSeen"]
+
         currentStatus = info["status"]
 
-        if time.time() - info["lastSeen"] > 15:
+        if age > 15:
             currentStatus = -1
+
+        print(
+            f"{device} | Stored={info['status']} | "
+            f"Age={age:.2f}s | Returned={currentStatus}"
+        )
 
         result.append({
             "deviceName": device,
@@ -80,8 +91,7 @@ def api_devices():
     response.headers["Pragma"] = "no-cache"
     response.headers["Expires"] = "0"
 
-    return response
-@app.route('/api/temperature')
+    return response@app.route('/api/temperature')
 def api_temperature():
 
     return jsonify(temperatureData)
