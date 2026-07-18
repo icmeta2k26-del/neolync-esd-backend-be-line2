@@ -72,7 +72,7 @@ def api_devices():
 
         currentStatus = info["status"]
 
-        if age > 15:
+        if age > 20:
             currentStatus = -1
 
         print(
